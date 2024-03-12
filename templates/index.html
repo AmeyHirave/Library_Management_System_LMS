@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Library Management System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+        .jumbotron{
+          padding: 2rem 1rem;
+          margin-bottom: 2rem;
+          background-color: #e9ecef;
+          border-radius: 0.3rem;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- <h1>Hello, world!</h1> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- As a heading -->
+    <nav class="navbar bg-body-tertiary py-0">
+      <div class="container-fluid justify-content-center align-items-center" style="background-color: blue;">
+        <!-- " justify-content-center " used to make content of navbar at center -->
+        <span class="navbar-brand mb-0 h1" style="text-align: center; color: white;">
+            <!-- Trying to add image on navbar but it doesn't loads on website -->
+            <img src="../static/BookLogo.jpg" alt="BookLogo" height="25">
+            <!-- <img src="{% static '/library1.jpg' %}" height="45" alt="logo"> -->
+            City Library</span>
+      </div>
+    </nav>
+
+    <!-- Tabs Start -->
+    <div class="container-fluid justify-content-center align-items-center">
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">           
+          <a class="nav-link" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/readers">Reader</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/books">Books</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="/Cart">My Cart</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="/returnedBooks">Return</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Tabs Ends -->
+    {%block main_containt%}
+    {% endblock %}
+    
+  </body>
+</html>

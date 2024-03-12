@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management System</title>
+  </head>
+  <body>
+    <h1 style="color: orange">Welcome To Online Library</h1>
+    <a href="/books">go to books</a>
+    <form method="POST" action="/save">
+      {% csrf_token %}
+      <label style="color: red; font-size: 20px">Student Name</label>
+      <input name="student_name" type="text" />
+      <button type="submit" style="background-color: rgb(231, 27, 163);">save</button>
+      <a href="/welcome"> Welcome</a>
+    </form>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>head1</th>
+          <th>head2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>row 1 data1</td>
+          <td>row 2 data2</td>
+        </tr>
+        <tr>
+          <td>row 1 data1</td>
+          <td>row 2 data2</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center">row 3 data 1</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

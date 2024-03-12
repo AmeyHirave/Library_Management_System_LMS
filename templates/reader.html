@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+{% extends "index.html" %} {% load static %} {%block main_containt%}
+<style>
+  .formValidation{
+    color: red;
+  }
+</style>
+<script>
+  // Form Validation starts
+  function validateForm() {
+    var name = document.getElementsByName("reader_name")[0].value;
+    var contact = document.getElementsByName("reader_contact")[0].value;
+    
+    var nameInput = document.getElementsByName("reader_name")[0];
+    var contactInput = document.getElementsByName("reader_contact")[0];
+    
+    var nameError = nameInput.nextElementSibling.querySelector(".formValidation");
+    var contactError = contactInput.nextElementSibling.querySelector(".formValidation");
+    
+    // Reset previous errors
+    nameError.innerHTML = "";
+    contactError.innerHTML = "";
+    
+    var isValid = true;
+    
+    // Validate name length
+    if (name.length < 4) {
+      nameError.innerHTML = "Name must be at least 4 characters long";
+      isValid = false;
+    }
+    
+    // Validate contact length
+    if (contact.length !== 10) {
+      contactError.innerHTML = "Contact number must be exactly 10 digits";
+      isValid = false;
+    }
+    
+    return isValid;
+    // Form Validation ends 
+  }
+  </script>
+  
+<!-- for Register new user heading starts -->
+<div class="container-flex justify-content-center align-items-center">
+  <div
+    class="row align-middle justify-content-center"
+    style="margin-top: 10px; height: 50px"
+  >
+    <div class="col-md-4 text-light" style="background-color: blueviolet">
+      <h4 style="margin-top: 10px; text-align: center">Register New Reader</h4>
+    </div>
+    <!-- Register new user heading Ends -->
+
+    <!-- for Search user heading starts -->
+    <div class="col-md-8">
+      <span><h4 style="text-align: center; color: black">Search Reader's Data</h4></span>
+    </div>
+
+    <!-- Search user heading Ends -->
+
+    <!-- For Form of Register user Starts-->
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          class="container"
+          style="
+            overflow-y: auto;
+            background-color: aqua;
+            height: 480px;
+            width: 400px;
+          "
+        >
+          <form action="/readers/add" class="d-flex" method="POST" name="myForm" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <table class="table" style="margin-top: 20px">
+              <div class="formValidation" id="contact">
+                <tr>
+                  <td>Name :</td>
+                  <td>
+                    <input type="text" class="form-control" name="reader_name"  required/>
+                    <div class="formDesign" id = "name">
+                      <b><span class="formValidation"></span></b>
+                    </div>
+                  </td>
+                </tr>
+              </div>
+              <div class="formValidation" id="contact">
+                <tr>
+                  <td>Reference Id: </td>
+                  <td>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="reference_id"
+                    />
+                  </td>
+                </tr>
+              </div>
+              <div class="formDesign" id="number">
+                <tr>
+                  <td>Contact :</td>
+                  <td>
+                    <input
+                      type="phone"
+                      class="form-control"
+                      name="reader_contact"
+                      maxlength="10"
+                    />
+                    <b><span class="formValidation"></span></b>
+                  </td>
+                </tr>
+              </div>
+              <div class="formValidation" id="address">
+                <tr>
+                  <td>Address :</td>
+                  <td>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      name="reader_address"
+                    >
+                    </textarea>
+                  </td>
+                </tr>
+                </div>
+              <td colspan="2" style="text-align: center">
+                <button class="btn btn-primary" type="submit">Save</button>
+              </td>
+            </table>
+          </form>
+          <!-- bullet points  -->
+          <ul>
+            <li>
+              <small
+                >Do not fill this form if you have already registered.</small
+              >
+            </li>
+            <li><small>Duplicate readers will be deactivated.</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--  Form of Register user Ends-->
+  </div>
+  <!-- Search bar code and other Starts-->
+  <div class="row">
+    <nav class="navbar bg-body-light">
+      <div class="container-fluid justify-content-center align-items-center">
+        <form class="d-flex" role="search" method="GET">
+          {% csrf_token %}
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search Reader"
+            aria-label="Search"
+            style="margin-left: 400px"
+            name = 'searchBar'
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <!-- code for count of users display Start-->
+    <div class="row" style="margin-top: 20px; margin-left: 750px">
+      <p><big>{{Count}} Readers subscribed </big></p>
+    </div>
+    <!-- code for count of users display Ends-->
+    <!-- Columns for user Data Starts-->
+
+    <div class="row" style="margin-top: 20px">
+      <div
+        class="container-fluid, col-md-8"
+        style="margin-left: 460px; overflow-y: scroll"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Reader Id</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <!-- <th>Reference Id</th> -->
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for reader in readerData%}
+            <tr>
+              <td>{{reader.id}}</td>
+              <td>{{reader.reader_name}}</td>
+              <td>{{reader.reader_contact}}</td>
+              <!-- <td>{{reader.reference_id}}</td> -->
+              <td>{{reader.reader_address}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Columns for user Data Ends-->
+    <!-- Search bar code and other Ends-->
+  </div>
+</div>
+{% endblock %}

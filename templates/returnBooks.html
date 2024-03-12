@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+{%block main_containt%}
+
+    <!-- for Search user heading starts -->
+    <div class="container my-3">
+         <h4 style="text-align: center; color: black">Search Readers</h4>
+    </div>
+    <!-- Search user heading Ends -->
+  
+    <!-- Search bar code and other Starts-->
+    <div class="row" >
+        <nav class="navbar bg-body-light">
+            <div class="container-fluid justify-content-center align-items-center">
+                <form class="d-flex" role="search" method = "GET">
+                  {% csrf_token %}
+                    <input
+                        class="form-control me-3"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                        name = "reader_name"
+                        style="margin-left: 60px; text-align: center;"
+                        
+                    />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+  </div>
+</div>
+<!-- Search bar code and other Ends-->
+<!-- Table for data of reader who rented books Starts -->
+<!-- <div class="row"> -->
+    
+      <div class="container" style="margin-top: 50px">
+        <div class="row" style="overflow-y: scroll; height: 300px; width: 1100px">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Reader Id</th>
+                <th>Reader Name</th>
+                <th>Book Name</th>
+                <th>Contact Number</th>
+                <th>Rented Date</th>
+                <th>Return Date</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              {% for rent in rentedData %}
+              <tr>
+                <td>{{rent.reader_id}}</td>
+                <td>{{rent.reader_name}}</td>
+                <td>{{rent.book_name}}</td>
+                <td>{{rent.readerContact}}</td>
+                <td>{{rent.rented_date}}</td>
+                <td>{{rent.return_date}}</td>
+                <td><button class="btn btn-danger"><a href="/delete/{{ rent.reader_id }}">delete</a></button></td>
+              </tr>
+              {% endfor %}
+              <!-- {{pass_return_info.reader_id}} -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+<!-- </div> -->
+<!-- Table for data of reader who rented books Ends -->
+{% endblock %}

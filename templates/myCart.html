@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% extends "index.html" %} {% load static %} {%block main_containt%}
+<!-- for Search user heading starts -->
+<div class="container my-3">
+  <h4 style="text-align: center; color: black">Books in My Cart</h4>
+</div>
+<div style="text-align: center;">
+  <h1 style="color: red;">Sorry This page is not Working properly </h1>
+</div>
+<!-- Search user heading Ends -->
+
+<div class="row">
+  <div class="col-md-4">
+    <div
+      class="container"
+      style="
+        overflow-y: auto;
+        background-color: aqua;
+        height: 480px;
+        width: 400px;
+      "
+    >
+      <!-- for Register new user heading starts -->
+      <div
+        class="container-flex justify-content-center align-items-center"
+        style="float: right"
+      >
+        <div
+          class="row align-middle justify-content-center"
+          style="margin-top: 10px; height: 50px"
+        >
+          <div class="col-md-8 text-light" style="background-color: blueviolet">
+            <h4 style="margin-top: 10px; text-align: center">
+              Ready For Checkout?
+            </h4>
+          </div>
+          <!-- Register new user heading Ends -->
+          <!-- form for process of rent in cart Starts-->
+          <form action="/cart/" class="d-flex" method="=POST">
+            {% csrf_token %}
+            <table class="table" style="margin-top: 20px">
+              <tr>
+                <td>Name :</td>
+                <td>
+                  <input type="text" class="form-control" name="reader_name" />
+                </td>
+              </tr>
+              <tr>
+                <td>Reference Id :</td>
+                <td>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="reference_id"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Start date & time:</td>
+                <td>
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    name="current_time"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Return date :</td>
+                <td>
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    name="return_time"
+                  />
+                  <!-- <textarea
+                    type="time"
+                    class="form-control"
+                    name="reader_address"
+                  >
+                  </textarea> -->
+                </td>
+              </tr>
+              <td colspan="2" style="text-align: center">
+                <button class="btn btn-primary" type="submit">Save</button>
+              </td>
+            </table>
+          </form>
+          <!-- bullet points  -->
+          <ul>
+            <li>
+              <small
+                >Do not fill this form if you have already registered.</small
+              >
+            </li>
+            <li><small>Duplicate readers will be deactivated.</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Display books added to cart from books.html -->
+  <div class="col-md-8">
+    <table class="col-md-8">
+      <thead>
+        <tr>
+          <th>Book Id</th>
+          <th>Author</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cartData in cartData %}  
+        <tr>
+          <td>{{cartData.book_id_in_cart}}</td>
+          <td>{{cartData.book_name_in_cart}}</td>
+          <td>{{cartData.totalCount}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- Display books added to cart from books.html -->
+</div>
+{% endblock %}

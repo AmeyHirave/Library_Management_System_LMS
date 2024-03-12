@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+{%block main_containt%}
+<main role="main"> <!-- content in main says it a unique content and should not repeat in any other web-page  -->
+<div class="jumbotron">
+    <div class="container">
+        <img src="../static/library1.jpg" class="rounded float-start" alt="Library img" height="180px" style="margin-right: 20px;">
+        <h1 class="display-4"> <b>Hello Readers!</b></h1>
+        <p>Welcome to City Library. We have large collection of books to cater the reading needs of all kind of readers.</p>
+            <p><a href="/books">
+                <button  class="btn btn-primary">See What We Have</button>
+            </a>
+        </p>
+    </div>
+</div>
+<!-- Adding Columns for data Start -->
+<div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col">
+        <h3>Why Reading is Important ?</h3>
+        <p style="text-align: start;"> When you read, you learn new things. Whether it's facts about the world, insights into different cultures, or how to do something new, reading broadens your understanding of the world around you.</p>
+      </div>
+      <div class="col">
+        <h3>Benefits of Reading</h3>
+        <ol style="text-align: start;">
+            <li>Knowledge Acquisition</li>
+            <li>Better Focus and Concentration</li>
+            <li>Enhanced Mental Stimulation</li>
+            <li>Improved Vocabulary etc...</li>
+            
+        </ol>
+      </div>
+      <div class="col">
+        <h3>Though of the day</h3>
+        <p style="text-align: start; font-family: 'Times New Roman', Times, sans-serif, 'Arial Narrow', Arial, sans-serif; font-size: large;">"Some books leave us free and some books make us free." 
+            <br> <pre style="font-size: medium;">– Ralph Waldo Emerson</pre>
+        </p> 
+      </div>
+    </div>
+    <hr>
+  </div>
+</main>
+  <footer class="container">
+    <p>@2024 City Library</p>
+  </footer>
+<!-- Column Data Ends -->
+    {% endblock %}

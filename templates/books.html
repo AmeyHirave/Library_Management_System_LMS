@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+{% extends "index.html" %} {% load static %} {%block main_containt%}
+
+<style>
+  .center-table {
+    margin: auto;
+    width: fit-content;
+  }
+  .Table {
+    border: 1px solid black;
+  }
+  /* Styles for the popup */
+  .popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  .popup-content {
+    background-color: blueviolet;
+    width: 50%;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  .close {
+    position: absolute;
+    top: 80px;
+    right: 360px;
+    font-size: 50px;
+    color: red;
+    cursor: pointer;
+  }
+
+  .error{
+    color: red;
+    font : bold;
+  }
+  /* Style for Pop up ends */
+</style>
+
+<script>
+  // JavaScript function to open the popup
+  function openPopup() {
+    document.getElementById("popup").style.display = "block";
+  }
+  //  To add reader and books 
+  function openPopup1() {
+    document.getElementById("popup1").style.display = "block";
+  }
+   // JavaScript function to close the popup
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  function closePopup1() {
+    document.getElementById("popup1").style.display = "none";
+  }
+
+  // Form Validation starts 
+
+    function validateForm() {
+      var readerName = document.getElementsByName("reader_name")[0].value;
+      var bookName = document.getElementsByName("book_name")[0].value;
+      var totalCount = document.getElementsByName("total_Count")[0].value;
+      var bookDescription = document.getElementsByName("book_description")[0].value;
+      var contact = document.getElementsByName("phone_number")[0].value;
+
+      var bookNameError = document.getElementById("bookNameError");
+      var totalCountError = document.getElementById("totalCountError");
+      var bookDescriptionError = document.getElementById("bookDescriptionError");
+      var readerNameError = document.getElementById("readerNameError")[0].value;
+      var contactError = document.getElementById("contactError")[0].value;
+
+      // Reset previous errors
+      bookNameError.innerHTML = "";
+
+      totalCountError.innerHTML = "";
+      bookDescriptionError.innerHTML = "";
+      readerNameError.innerHTML = "";
+      contactError.innerHTML = "";
+
+      var isValid = true;
+
+      // Validate book name
+      if (bookName.length < 3) {
+        bookNameError.innerHTML = "Book name is too short";
+        isValid = false;
+      }
+
+      // Validate total count
+      if (totalCount === "0") {
+        totalCountError.innerHTML = "Enter total books";
+        isValid = false;
+      }
+
+      // Validate book description length
+      if (bookDescription.length > 500) {
+        bookDescriptionError.innerHTML = "Enter in short";
+        isValid = false;
+      }
+
+      // Reader Validation
+      if (readerName.length < 4) {
+        document.getElementById("readerNameError").innerHTML = "Reader name must be at least 4 characters long";
+        isValid = false;
+      }
+
+      // Validate contact length and type
+      if (contact.length !== 10 || isNaN(contact)) {
+        contactError.innerHTML = "Contact number must be exactly 10 digits and contain only numbers";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+  // Form Validation Ends
+
+</script>
+
+<!-- for Search user heading starts -->
+<div class="container my-4">
+  <h4 style="text-align: center; color: black">Search For Books</h4>
+</div>
+<!-- Search user heading Ends -->
+ 
+<!-- Search bar code and other Starts-->
+<div class="row">
+  <nav class="navbar bg-body-light">
+    <div class="container-fluid justify-content-center align-items-center">
+      <form class="d-flex" role="search" method = "GET">
+        <input
+          class="form-control me-3"
+          type="search"
+          placeholder="Search Books"
+          aria-label="Search"
+          name = "book_name"
+          style="margin-left: 60px; text-align: center"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>    
+  </nav>
+  
+  <span> <button class="btn btn-primary"  onclick="openPopup1()" style="margin-left: 1100px; ">
+    Rent Book
+  </button>
+</span>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <!-- Your content here -->
+      <form action="/addData" class="d-flex" method="POST" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <table class="table" style="margin-top: 20px">
+          <tr>
+            <td>Book Name :</td>
+            <td>
+              <input type="text" class="form-control" name="book_name"  required/>
+              <span id="bookNameError" class="error"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Book Id :</td>
+            <td>
+              <input type="number" class="form-control" name="book_id"  required/>
+            </td>
+          </tr>
+          <tr>
+            <td>Total Count  :</td>
+            <td>
+              <input type="number" class="form-control" name="total_Count"  required/>
+              <span id="totalCountError" class="error"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Books Author :</td>
+            <td>
+              <input type="text" class="form-control" name="author_name"  required/>
+            </td>
+          </tr>
+          <tr>
+            <td>Book Description :</td>
+            <td>
+              <textarea
+                type="text"
+                class="form-control"
+                name="book_description" 
+                required
+              >
+              </textarea>
+              <span id="bookDescriptionError" class="error"></span>
+            </td>
+          </tr>
+          <td colspan="2" style="text-align: center">
+            <button class="btn btn-primary" type="submit">Save</button>
+          </td>
+        </table>
+      </form>
+      <!-- You can include any content you want to display in the popup -->
+    </div>
+  </div>
+
+  <button
+    onclick="openPopup()"
+    class="btn btn-outline-primary"
+    style="width: 180px; margin: 0; position: absolute; top: 36%; right: 42%"
+  >
+    Add New Book
+  </button>
+</div>
+  <!-- Search bar code and other Ends-->
+  <!-- Columns for user Data Starts-->
+  <!-- <div class=""> -->
+  <div class="container-fluid" style="padding-left: 120px">
+    <p><b>Total Books present in Library : {{ countofBooks }}</b></p>
+  </div>
+  <div class="container" style="margin-top: 60px">
+    <div class="row" style="overflow-y: scroll; height: 300px; width: 1100px">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Book Id</th>
+            <th>Book Name</th>
+            <th>Book Author Name</th>
+            <th>Book Description</th>
+            <th>Total Books</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for BooksData in booksDataPrint %}
+          <tr>
+            <td>{{BooksData.book_id}}</td>
+            <td>{{BooksData.book_name}}</td>
+            <td>{{BooksData.book_author_name}}</td>
+            <td>{{BooksData.book_description}}</td>
+            <td>{{BooksData.cntOfBooks}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- </div> -->
+  <!-- Columns for user Data Ends-->
+  <!-- Test Start -->
+  
+  <div class="popup" id="popup1">
+   <div class="popup-content">
+     <span class="close" onclick="closePopup1()">&times;</span>
+     <!-- Your content here -->
+     <form action="/returnBookAndReader" class="d-flex" method="POST" onclick="return validateForm()">
+       {% csrf_token %}
+       <table class="table" style="margin-top: 20px">
+         <tr>
+           <td>Reader Id :</td>
+           <td>
+             <input type="number" class="form-control" name="reader_id"  required/>
+
+           </td>
+         </tr>
+         <tr>
+           <td>Reader Name :</td>
+           <td>
+             <input type="text" class="form-control" name="reader_name" required/>
+             <span class="error" id="readerNameError"></span>
+           </td>
+         </tr>
+         <tr>
+          <td>Book Name :</td>
+          <td>
+            <input type="text" class="form-control" name="book_name"  required/>
+            <span class="error" id="bookNameError"></span> 
+          </td>
+        </tr>
+        <tr>
+          <td>Contact :</td>
+          <td>
+            <input type="number" class="form-control" name="phone_number"  maxlength="10"  required/>
+            <span class="error" id="contactError"></span> 
+          </td>
+        </tr>
+        <tr>
+          <td>Rented Date :</td>
+          <td>
+            <input type="date" class="form-control" name="rented_date" placeholder="Enter Date Format (YYYY-MM-DD)"  pattern="\d{4}-\d{2}-\d{2}" required/>
+          </td>
+        </tr>
+        <tr>
+          <td>Return Date :</td>
+          <td>
+            <input type="date" class="form-control" name="return_date" placeholder="Enter Date Format (YYYY-MM-DD)"  pattern="\d{4}-\d{2}-\d{2}" required/>
+          </td>
+        </tr>
+         <td colspan="2" style="text-align: center">
+           <button class="btn btn-primary" type="submit">Save</button>
+         </td>
+       </table>
+     </form>
+     <!-- You can include any content you want to display in the popup -->
+   </div>
+ </div>
+</div>
+<!-- Test end -->
+{% endblock %}
